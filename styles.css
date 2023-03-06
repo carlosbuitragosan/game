@@ -4,22 +4,39 @@
 
 body {
     display: grid;
-    grid-template-rows: 1fr 1fr;
-    background: #000;
+    grid-template-rows: 1fr fr;
+    background: #15202b;
 }
 
 .header {
-    color: white;
+    color: #F2FAFF;
+}
+
+.title {
+    font-family: 'Rubik Iso', cursive;
+    font-size: 4rem;
+}
+
+
+.subtitle {
+    font-family: 'Rubik Iso', cursive;
+    font-size: 3rem;
+}
+
+.instructions {
+    font-family: 'Genos', sans-serif;
+    font-size: 2rem;
 }
 .box {
-    padding: 3rem;
+    margin-top: 40%;
+    padding: 1rem;
     background: #e3e3dc;
     border-radius: 8px;
     justify-self: center;
 }
 
 .buttons__container {
-    width:;
+    width: ;
     display: grid;
     grid-template-columns: 1fr 1fr;
     justify-items: center;
@@ -29,40 +46,61 @@ body {
 }
 
 .play-buttons {
-    width: 20vw;
-    height: 20vw;
-    box-shadow: 2px 2px  8px #0003, 4px 4px 16px #0006;
-    border: none;
+    width: 30vw;
+    height: 30vw;
+    box-shadow: 2px 2px  8px #000, 4px 4px 16px #000;
     border-radius: 1rem;
 
 }
 .play-buttons:active {
-    box-shadow: inset -2px -2px 8px #0003, inset 2px 2px 8px rgb(234, 223, 223);
+    box-shadow: inset -2px -2px 8px #000, inset 2px 2px 8px rgb(234, 223, 223);
 
 } 
 
 .button__top-left {
-    background: #FF006Fcc;
+    border: 1rem solid #FF006F;
+    background: #FF006F;
 }
 .button__top-right {
-    background: #4A62FFcc;
+    border: 1rem solid #4A62FF;
+    background: #4A62FF;
 }
 
 .button__bottom-left {
-    background: #f4fc09cc;
+    border: 1rem solid #f4fc09;
+    background: #f4fc09;
 }
 .button__bottom-right {
-    background: #009700cc;
+    border: 1rem solid #009700;
+    background: #009700;
 }
 
 @media screen and (orientation: landscape) {
+
     body {
         display: flex;
         justify-content: center;
+        margin-top: 10%;
+
     }
 
+    .header {
+        width: 40%;
+        padding: 2rem;
+
+    }
     .box {
+        margin-top: initial;
         flex-grow: 2;
+
+    }
+    .play-buttons {
+        width: 20vw;
+        height: 20vw;
+    }
+
+    .buttons__container {
+        align-content: center;
     }
 }
 
