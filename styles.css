@@ -3,8 +3,8 @@
 }
 
 body {
-    display: grid;
-    grid-template-rows: 1fr fr;
+    display: flex;
+    flex-direction: column;
     background: #15202b;
 }
 
@@ -13,39 +13,61 @@ body {
 }
 
 .title {
+    text-align: center;
     font-family: 'Rubik Iso', cursive;
-    font-size: 4rem;
+    font-size: 4rem;    
+    color: #fff;
+    text-shadow: 0 0 6px #fff, 0 0 12px #fff, 0 0 18px #fff, 0 0 24px #730AFF, 0 0 30px #730AFF, 0 0 36px #730AFF, 0 0 36px #730AFF, 0 0 42px #730AFF, 0 0 48px #ff0a16;
 }
-
 
 .subtitle {
+    text-align: center;
     font-family: 'Rubik Iso', cursive;
     font-size: 3rem;
+    color: #fff;
+    text-shadow: 0 0 6px #fff, 0 0 12px #fff, 0 0 18px #fff, 0 0 24px #ff0a16, 0 0 30px #ff0a16, 0 0 36px #ff0a16, 0 0 36px #ff0a16, 0 0 42px #ff0a16, 0 0 48px #ff0a16;
 }
+
 
 .instructions {
     font-family: 'Genos', sans-serif;
     font-size: 2rem;
+    padding: 0 1rem;
 }
+.menu {
+    display: flex;
+    justify-content: center;
+}
+.menu__button_start {
+    font-family: 'Genos', sans-serif;
+    font-size: 1.6rem;
+    padding: .6rem 2rem;
+    cursor: pointer;
+    border-radius: 1rem 3rem;
+    border: 1px solid rgb(52, 224, 240);
+    background-image: linear-gradient(180deg, #51D4CA 0%, #00766D 100%);
+    box-shadow: 0 8px 10px 0 #ffffff33, 0 2px 8px #51D4CA inset, 0 6px 6px #ffffff66 inset, 0 1px 6px 0 #00766D inset;
+}
+
 .box {
-    margin-top: 40%;
-    padding: 1rem;
+    padding: 2rem;
     background: #e3e3dc;
     border-radius: 8px;
-    justify-self: center;
+    margin: 2% 3% 10% 3%;
+
 }
 
 .buttons__container {
-    width: ;
     display: grid;
     grid-template-columns: 1fr 1fr;
     justify-items: center;
-    column-gap: 1rem;
-    row-gap: 1rem;
+    row-gap: 2rem;
+    column-gap: 2rem;
     
 }
 
 .play-buttons {
+    cursor: pointer;
     width: 30vw;
     height: 30vw;
     box-shadow: 2px 2px  8px #000, 4px 4px 16px #000;
@@ -75,37 +97,19 @@ body {
     background: #009700;
 }
 
-@media screen and (orientation: landscape) {
 
-    body {
-        display: flex;
-        justify-content: center;
-        margin-top: 10%;
-
-    }
-
-    .header {
-        width: 40%;
-        padding: 2rem;
-
-    }
-    .box {
-        margin-top: initial;
-        flex-grow: 2;
-
-    }
-    .play-buttons {
-        width: 20vw;
-        height: 20vw;
-    }
-
-    .buttons__container {
-        align-content: center;
-    }
-}
 
 @media screen and (min-width: 800px) {
+
+    .instructions {
+        max-width: 60vw;
+    }
     .box {
-        max-width: 70vw;
+        align-self: center;
+    }
+
+    .play-buttons {
+        width: 15vw;
+        height: 15vw;
     }
 }
