@@ -41,6 +41,7 @@ body {
 .menu__button_start {
     font-family: 'Genos', sans-serif;
     font-size: 1.6rem;
+    color: #501DFF;
     padding: .6rem 2rem;
     cursor: pointer;
     border-radius: 1rem 3rem;
@@ -99,7 +100,7 @@ body {
 
 
 
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 650px) {
 
     .instructions {
         max-width: 60vw;
@@ -109,7 +110,7 @@ body {
     }
 
     .play-buttons {
-        width: 15vw;
-        height: 15vw;
+        width: 12vw;
+        height: 12vw;
     }
 }
