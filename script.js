@@ -14,18 +14,37 @@ const bottomLeftButton = document.querySelector('.button__bottom-left');
 const bottomRightButton = document.querySelector('.button__bottom-right');
 const startButton = document.querySelector('.menu__button_start');
 
-const play = () => {
-    win = false;
-    buttonsOrder = [];
-    playerOrder = [];
-    flash = 0;
-    intervalId = 0;
-    round = 1;
-    good = true;
-    
-    for(i = 0; i < 20; i ++) {
-        buttonsOrder.push(Math.floor(Math.random() * 4) + 1);
-    };
-    computerTurn = true;
 
+const audio1 = () => {
+    let audio = document.querySelector('#sample__a');
+    audio.play();
 }
+
+topLeftButton.addEventListener('click', () => {
+    audio1();
+})
+
+const audio2 = () => {
+    let audio = document.querySelector('#sample__g');
+    audio.play();
+}
+
+topRighButton.addEventListener('click', () => {
+    audio2();
+})
+
+const audio3 = () => {
+    let audio = document.querySelector('#sample__d');
+    audio.play();
+}
+bottomLeftButton.addEventListener('click', () => {
+    audio3();
+})
+
+const audio4 = () => {
+    let audio = document.querySelector('#sample__e');
+    audio.play();
+}
+bottomRightButton.addEventListener('click', () => {
+    audio4();
+})
