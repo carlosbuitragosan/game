@@ -29,7 +29,7 @@ const audioE = document.querySelector('#sample__e');
 //////////////// **** FLASH COLOUR FUNCTION *****/////////
 const flashColour = (button, value) => {
     button.classList.toggle(value);
-    setTimeout(() => button.classList.toggle(value), 200);
+    setTimeout(() => button.classList.toggle(value), 400);
 };
 ///
 
@@ -44,12 +44,14 @@ const playAudio = (track) => {
 ////////////////////// *** CLICK BUTTONS EVENT *** ////////////////////
 allButtons.forEach(button => {
     button.addEventListener('click', (event) => {
+
+        /////flash the colour
         let buttonClassValue = event.currentTarget.classList.value.split(' ')[1];
         let flashColourClassvalue = buttonClassValue + '_flash';
-
         flashColour(button, flashColourClassvalue);
 
-        switch (buttonClassValue) { //////// ** playAudio() ** //////
+        ///play the audio
+        switch (buttonClassValue) { 
             case 'button__top-left':
                 playAudio(audioA);
                 break;
@@ -194,7 +196,7 @@ const play = () => {
         buttonsOrder.push(Math.floor(Math.random() * 4) + 1);
     }
     computerTurn = true; //the first round starts with the computer
-    intervalId = (setInterval(gameTurn, 800));
+    intervalId = (setInterval(gameTurn, 600));
 };
 
 
@@ -227,6 +229,6 @@ const gameTurn = () => {
                 flashColour(greenButton, 'button__bottom-right_flash');
             }
             flash ++;
-        }, 200);
+        }, 1);
     }
 }
