@@ -15,7 +15,8 @@ body {
 .title {
     text-align: center;
     font-family: 'Rubik Iso', cursive;
-    font-size: 4rem;    
+    font-size: 4rem;   
+    font-weight: 100; 
     color: #fff;
     text-shadow: 0 0 6px #fff, 0 0 12px #fff, 0 0 18px #fff, 0 0 24px #730AFF, 0 0 30px #730AFF, 0 0 36px #730AFF, 0 0 36px #730AFF, 0 0 42px #730AFF, 0 0 48px #ff0a16;
 }
@@ -24,6 +25,7 @@ body {
     text-align: center;
     font-family: 'Rubik Iso', cursive;
     font-size: 3rem;
+    font-weight: 100; 
     color: #fff;
     text-shadow: 0 0 6px #fff, 0 0 12px #fff, 0 0 18px #fff, 0 0 24px #ff0a16, 0 0 30px #ff0a16, 0 0 36px #ff0a16, 0 0 36px #ff0a16, 0 0 42px #ff0a16, 0 0 48px #ff0a16;
 }
@@ -48,8 +50,13 @@ body {
     border-radius: 1rem 3rem;
     border: 1px solid rgb(52, 224, 240);
     background-image: linear-gradient(180deg, #51D4CA 0%, #00766D 100%);
-    box-shadow: 0 8px 10px 0 #ffffff33, 0 2px 8px #51D4CA inset, 0 6px 6px #ffffff66 inset, 0 1px 6px 0 #00766D inset;
+    box-shadow: 0 8px 10px  #ffffff33, 0 6px 6px #ffffff66 inset;
 }
+
+.menu__button_start:active {
+    box-shadow:  0 4px 8px #8f8a8a inset;
+}
+
 
 .box {
     padding: 2rem;
