@@ -1,18 +1,98 @@
 let buttonsOrder = []; //keep track of the order of the lights and how they flash //
 let playerOrder = []; // order that the player is pressing the buttons //
-let flash = 0; // the number of flashes that have appeared //
+let flash; // the number of flashes that have appeared //
 let round; //keep track of what turn we're on //
-let good; //boolean, it player has hit the right colours then = true //
-let computerTurn = true; // to keep track of whose turn it is //
+let noErrors; //boolean, it player has hit the right colours then = true //
+let computerTurn; // to keep track of whose turn it is //
 let intervalId;
 let sound = true; // if we're playing sound //
-let win = false; // boolean. if you win the = true //
+let win; // boolean. if you win the = true //
 
+
+//////////////// *** BUTTONS ***   ////////////////////////
+const allButtons = [...document.querySelectorAll('.play-buttons')];
 const redButton = document.querySelector('.button__top-left');
 const blueButton = document.querySelector('.button__top-right');
 const yellowButton = document.querySelector('.button__bottom-left');
 const greenButton = document.querySelector('.button__bottom-right');
 const startButton = document.querySelector('.menu__button_start');
+///
+
+//////////////// *** AUDIO SAMPLES ***   //////////////////
+const  audioA = document.querySelector('#sample__a');
+const audioG = document.querySelector('#sample__g');
+const audioD = document.querySelector('#sample__d');
+const audioE = document.querySelector('#sample__e');
+///
+
+
+//////////////// **** FLASH COLOUR FUNCTION *****/////////
+const flashColour = (button, value) => {
+    button.classList.toggle(value);
+    setTimeout(() => button.classList.toggle(value), 200);
+};
+///
+
+
+////////////// **** PLAY AUDIO FUNCTION *** //////////////
+const playAudio = (track) => {
+    track.play();
+};
+///
+
+
+////////////////////// *** CLICK BUTTONS EVENT *** ////////////////////
+allButtons.forEach(button => {
+    button.addEventListener('click', (event) => {
+        let buttonClassValue = event.currentTarget.classList.value.split(' ')[1];
+        let flashColourClassvalue = buttonClassValue + '_flash';
+
+        flashColour(button, flashColourClassvalue);
+
+        switch (buttonClassValue) { //////// ** playAudio() ** //////
+            case 'button__top-left':
+                playAudio(audioA);
+                break;
+            case 'button__top-right':
+                playAudio(audioG)
+                break;
+            case 'button__bottom-left':
+                playAudio(audioD);
+                break;
+            case 'button__bottom-right':
+                playAudio(audioE);
+                break;
+        }
+    });
+});
+//////
+
+
+// const flashColourRed = () => {
+//     redButton.style.backgroundColor = '#FB78B1';
+//     redButton.style.border = '#FB78B1';
+//     setTimeout(() => redButton.style.backgroundColor = '#FF006F', 200);
+// }
+
+// const flashColourBlue = () => {
+//     blueButton.style.backgroundColor = '#7E8FF9';
+//     blueButton.style.border = '#7E8FF9';
+//     setTimeout(() => blueButton.style.backgroundColor = '#4A62FF', 200);
+// }
+
+// const flashColourYellow = () => {
+//     yellowButton.style.backgroundColor = '#FCFFBA';
+//     yellowButton.style.border = '#FCFFBA';
+//     setTimeout(() => yellowButton.style.backgroundColor = '#f4fc09', 200);
+// }
+
+// const flashColourGreen = () => {
+//     greenButton.style.backgroundColor = '#9AFB9A';
+//     greenButton.style.border = '#9AFB9A';
+//     setTimeout(() => greenButton.style.backgroundColor = '#009700', 200);
+// }
+
+
 
 
 
@@ -21,37 +101,46 @@ const startButton = document.querySelector('.menu__button_start');
 //////////////////////////////////////////////////////
         // **** BUTTON FLASH & SOUND FUNCTIONS ****
 ////////////////////////////////////////////////////////
-const one = () => {
-    let audio = document.querySelector('#sample__a');
-    audio.play();
-    redButton.style.backgroundColor = '#FB78B1';
-    redButton.style.border = '#FB78B1';
-    setTimeout(() => redButton.style.backgroundColor = '#FF006F', 200);
-}
 
-const two = () => {
-    let audio = document.querySelector('#sample__g');
-    audio.play();
-    blueButton.style.backgroundColor = '#7E8FF9';
-    blueButton.style.border = '#7E8FF9';
-    setTimeout(() => blueButton.style.backgroundColor = '#4A62FF', 200);
-}
 
-const three = () => {
-    let audio = document.querySelector('#sample__d');
-    audio.play();
-    yellowButton.style.backgroundColor = '#FCFFBA';
-    yellowButton.style.border = '#FCFFBA';
-    setTimeout(() => yellowButton.style.backgroundColor = '#f4fc09', 200);
-}
+// allButtons.forEach(button => {
+//     button.addEventListener('click', event => {
+//         console.log(event.currentTarget.classList.value.split(' ')[1])
+//         switch (event.currentTarget.classList.value.split(' ')[1]) {
+//             case 'button__top-left':
+//                 playAudio(audioA);
+//                 break;
+//             case 'button__top-right':
+//                 playAudio(audioG)
+//                 break;
+//             case 'button__bottom-left':
+//                 playAudio(audioD);
+//                 break;
+//             case 'button__bottom-right':
+//                 playAudio(audioE);
+//         }
+//     })
+// })
 
-const four = () => {
-    let audio = document.querySelector('#sample__e');
-    audio.play();
-    greenButton.style.backgroundColor = '#9AFB9A';
-    greenButton.style.border = '#9AFB9A';
-    setTimeout(() => greenButton.style.backgroundColor = '#009700', 200)
-}
+// const playAudioRed = () => {
+//     audioA.play();
+//     // flashColourRed();
+// }
+
+// const playAudioBlue = () => {
+//     audioG.play();
+//     // flashColourBlue();
+// }
+
+// const playAudioYellow = () => {
+//     audioD.play();
+//     // flashColourYellow();
+// }
+
+// const playAudioGreen = () => {
+//     audioE.play();
+//     // flashColourGreen();
+// }
 
 
 
@@ -60,22 +149,32 @@ const four = () => {
 /////////////////////////////////////////////////////////
                 // **** PLAYER CLICKING BUTTONS  ****
 //////////////////////////////////////////////////////////
-redButton.addEventListener('click', () => {
-    one();  
-})
+// redButton.addEventListener('click', () => {
+//     playAudioRed();  
+// })
 
-blueButton.addEventListener('click', () => {
-    two();
-})
+// blueButton.addEventListener('click', () => {
+//     playAudioBlue();
+// })
 
-yellowButton.addEventListener('click', () => {
-    three();
-})
+// yellowButton.addEventListener('click', () => {
+//     playAudioYellow();
+// })
 
-greenButton.addEventListener('click', () => {
-    four();
-})
+// greenButton.addEventListener('click', () => {
+//     playAudioGreen();
+// })
 
+
+
+
+////////////////////////////////////////////////////////////
+                // **** START GAME ******
+//////////////////////////////////////////////////////////////
+startButton.addEventListener('click', () => {
+    clearInterval(intervalId); //if this is not cleared when button is pressed again it creates a mess (maybe several functions running together)
+    play();
+})
 
 
 
@@ -85,22 +184,19 @@ greenButton.addEventListener('click', () => {
 //////////////////////////////////////////////
 const play = () => {
     buttonsOrder = [];
+    playerOrder = [];
     flash = 0;
     intervalId = 0;
+    round = 1; 
+    win = false;
+    noErrors = true;
     for (let i = 0; i < 20; i ++) {
         buttonsOrder.push(Math.floor(Math.random() * 4) + 1);
     }
-    intervalId = setInterval(gameTurn, 800);
-}
+    computerTurn = true; //the first round starts with the computer
+    intervalId = (setInterval(gameTurn, 800));
+};
 
-
-
-
-
-startButton.addEventListener('click', () => {
-    clearInterval(intervalId); //if this is not cleared when button is pressed again it creates a mess (maybe several functions running together)
-    play();
-})
 
 
 
@@ -108,11 +204,29 @@ startButton.addEventListener('click', () => {
     // **** GAME TURN FUNCTION ****
 //////////////////////////////////////////////
 const gameTurn = () => {
-    setTimeout(() => {
-        if (buttonsOrder[flash] === 1) one();
-        if (buttonsOrder[flash] === 2) two();
-        if (buttonsOrder[flash] === 3) three();
-        if (buttonsOrder[flash] === 4) four();
-        flash ++;
-    }, 200);
+    if (flash === round) {
+        computerTurn = false; //so that: the first round (flash=0 & round=1)=computerTurn = true but when flash increases then flash==round and computer stops, therefore first round there's only one sound;
+        clearInterval(intervalId);
+    }
+    if (computerTurn) { 
+        setTimeout(() => {
+            if (buttonsOrder[flash] === 1) {
+                playAudio(audioA);
+                flashColour(redButton, 'button__top-left_flash');
+            }
+            if (buttonsOrder[flash] === 2) {
+                playAudio(audioG);
+                flashColour(blueButton, 'button__top-right_flash');
+            }
+            if (buttonsOrder[flash] === 3) {
+                playAudio(audioD);
+                flashColour(yellowButton, 'button__bottom-left_flash');
+            }
+            if (buttonsOrder[flash] === 4) {
+                playAudio(audioE);
+                flashColour(greenButton, 'button__bottom-right_flash');
+            }
+            flash ++;
+        }, 200);
+    }
 }
