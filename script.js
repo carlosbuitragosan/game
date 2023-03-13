@@ -26,7 +26,7 @@ const audioE = document.querySelector('#sample__e');
 ///
 
 
-//////////////// **** FLASH COLOUR FUNCTION *****/////////
+//////////////// *** FLASH COLOUR FUNCTION *** /////////
 const flashColour = (button, value) => {
     button.classList.toggle(value);
     setTimeout(() => button.classList.toggle(value), 400);
@@ -34,7 +34,7 @@ const flashColour = (button, value) => {
 ///
 
 
-////////////// **** PLAY AUDIO FUNCTION *** //////////////
+////////////// *** PLAY AUDIO FUNCTION *** //////////////
 const playAudio = (track) => {
     track.play();
 };
@@ -44,8 +44,9 @@ const playAudio = (track) => {
 ////////////////////// *** CLICK BUTTONS EVENT *** ////////////////////
 allButtons.forEach(button => {
     button.addEventListener('click', (event) => {
+        if (computerTurn === false) {
 
-        /////flash the colour
+            /////flash the colour
         let buttonClassValue = event.currentTarget.classList.value.split(' ')[1];
         let flashColourClassvalue = buttonClassValue + '_flash';
         flashColour(button, flashColourClassvalue);
@@ -54,17 +55,27 @@ allButtons.forEach(button => {
         switch (buttonClassValue) { 
             case 'button__top-left':
                 playAudio(audioA);
+                playerOrder.push(1);
+                checkPlayerRound();
                 break;
             case 'button__top-right':
                 playAudio(audioG)
+                playerOrder.push(2);
+                checkPlayerRound();
                 break;
             case 'button__bottom-left':
                 playAudio(audioD);
+                playerOrder.push(3);
+                checkPlayerRound();
                 break;
             case 'button__bottom-right':
                 playAudio(audioE);
+                playerOrder.push(4);
+                checkPlayerRound();
                 break;
+            }
         }
+        console.log({round}, {playerOrder})
     });
 });
 //////
@@ -170,20 +181,17 @@ allButtons.forEach(button => {
 
 
 
-////////////////////////////////////////////////////////////
-                // **** START GAME ******
-//////////////////////////////////////////////////////////////
+///////////////////// **** START GAME ****** ///////////////////
 startButton.addEventListener('click', () => {
     clearInterval(intervalId); //if this is not cleared when button is pressed again it creates a mess (maybe several functions running together)
     play();
 })
+//////
 
 
 
 
-//////////////////////////////////////////////
-        // ****** PLAY FUNCTION **** 
-//////////////////////////////////////////////
+////////////////// *** PLAY FUNCTION *** ////////////////////////////
 const play = () => {
     buttonsOrder = [];
     playerOrder = [];
@@ -198,17 +206,18 @@ const play = () => {
     computerTurn = true; //the first round starts with the computer
     intervalId = (setInterval(gameTurn, 600));
 };
+//////
 
 
 
 
-///////////////////////////////////////////////
-    // **** GAME TURN FUNCTION ****
-//////////////////////////////////////////////
+//////////////// *** GAME TURN FUNCTION *** ///////////////////////////////
 const gameTurn = () => {
+    console.log('gameTurn', {computerTurn})
     if (flash === round) {
         computerTurn = false; //so that: the first round (flash=0 & round=1)=computerTurn = true but when flash increases then flash==round and computer stops, therefore first round there's only one sound;
         clearInterval(intervalId);
+        console.log('if statement', {computerTurn})
     }
     if (computerTurn) { 
         setTimeout(() => {
@@ -231,4 +240,18 @@ const gameTurn = () => {
             flash ++;
         }, 1);
     }
+};
+/////
+
+
+/////////////// *** CHECK PLAYER'S ROUND FUNCTION *** /////////////
+const checkPlayerRound = () => {
+    if (round === playerOrder.length) { ///this piece of code generates the next round
+        round ++;
+        playerOrder = [];
+        computerTurn = true;
+        flash = 0;
+        intervalId = setInterval(gameTurn, 600);
+    }
 }
+//////
