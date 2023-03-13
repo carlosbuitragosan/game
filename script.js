@@ -1,4 +1,4 @@
-let buttonsOrder = []; //keep track of the order of the lights and how they flash //
+let computerOrder = []; //keep track of the order of the lights and how they flash //
 let playerOrder = []; // order that the player is pressing the buttons //
 let flash; // the number of flashes that have appeared //
 let round; //keep track of what turn we're on //
@@ -23,13 +23,14 @@ const  audioA = document.querySelector('#sample__a');
 const audioG = document.querySelector('#sample__g');
 const audioD = document.querySelector('#sample__d');
 const audioE = document.querySelector('#sample__e');
+const audioError = document.querySelector('#error');
 ///
 
 
 //////////////// *** FLASH COLOUR FUNCTION *** /////////
 const flashColour = (button, value) => {
     button.classList.toggle(value);
-    setTimeout(() => button.classList.toggle(value), 400);
+    setTimeout(() => button.classList.toggle(value), 500);
 };
 ///
 
@@ -56,7 +57,7 @@ allButtons.forEach(button => {
             case 'button__top-left':
                 playAudio(audioA);
                 playerOrder.push(1);
-                checkPlayerRound();
+                    checkPlayerRound();
                 break;
             case 'button__top-right':
                 playAudio(audioG)
@@ -75,7 +76,6 @@ allButtons.forEach(button => {
                 break;
             }
         }
-        console.log({round}, {playerOrder})
     });
 });
 //////
@@ -193,15 +193,9 @@ startButton.addEventListener('click', () => {
 
 ////////////////// *** PLAY FUNCTION *** ////////////////////////////
 const play = () => {
-    buttonsOrder = [];
-    playerOrder = [];
-    flash = 0;
-    intervalId = 0;
-    round = 1; 
-    win = false;
-    noErrors = true;
+    resetGame();
     for (let i = 0; i < 20; i ++) {
-        buttonsOrder.push(Math.floor(Math.random() * 4) + 1);
+        computerOrder.push(Math.floor(Math.random() * 4) + 1);
     }
     computerTurn = true; //the first round starts with the computer
     intervalId = (setInterval(gameTurn, 600));
@@ -221,24 +215,24 @@ const gameTurn = () => {
     }
     if (computerTurn) { 
         setTimeout(() => {
-            if (buttonsOrder[flash] === 1) {
+            if (computerOrder[flash] === 1) {
                 playAudio(audioA);
                 flashColour(redButton, 'button__top-left_flash');
             }
-            if (buttonsOrder[flash] === 2) {
+            if (computerOrder[flash] === 2) {
                 playAudio(audioG);
                 flashColour(blueButton, 'button__top-right_flash');
             }
-            if (buttonsOrder[flash] === 3) {
+            if (computerOrder[flash] === 3) {
                 playAudio(audioD);
                 flashColour(yellowButton, 'button__bottom-left_flash');
             }
-            if (buttonsOrder[flash] === 4) {
+            if (computerOrder[flash] === 4) {
                 playAudio(audioE);
                 flashColour(greenButton, 'button__bottom-right_flash');
             }
             flash ++;
-        }, 1);
+        }, 200);
     }
 };
 /////
@@ -251,7 +245,36 @@ const checkPlayerRound = () => {
         playerOrder = [];
         computerTurn = true;
         flash = 0;
-        intervalId = setInterval(gameTurn, 600);
+        setTimeout(() => { /// I put this timer to give some time between player and next computer round
+            intervalId = setInterval(gameTurn, 600);
+        }, 500) 
+    }
+    if (playerOrder[playerOrder.length -1] !== computerOrder[playerOrder.length - 1]) {///this checks for the player round against the computer round and if error then game is reset
+        noErrors = false;
+    }
+    if (noErrors ===false) {
+        gameOver();
+        resetGame();
+
     }
 }
 //////
+
+
+////////////// *** RESET VARIABLES *** /////////////////////
+const resetGame = () => {
+    computerOrder = [];
+    playerOrder = [];
+    flash = 0;
+    intervalId = 0;
+    round = 1; 
+    win = false;
+    noErrors = true;
+    console.log('GAME RESET');
+}
+///
+
+const gameOver = () => {
+    console.log('GAME OVER');
+    playAudio(audioError);
+}
