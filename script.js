@@ -1,6 +1,6 @@
 let computerOrder = []; //keep track of the order of the lights and how they flash //
 let playerOrder = []; // order that the player is pressing the buttons //
-let flash; // the number of flashes that have appeared //
+let numberOfFlashes; // the number of flashes that have appeared //
 let round; //keep track of what turn we're on //
 let noErrors; //boolean, it player has hit the right colours then = true //
 let computerTurn; // to keep track of whose turn it is //
@@ -28,9 +28,9 @@ const audioError = document.querySelector('#error');
 
 
 //////////////// *** FLASH COLOUR FUNCTION *** /////////
-const flashColour = (button, value) => {
-    button.classList.toggle(value);
-    setTimeout(() => button.classList.toggle(value), 500);
+const flashColour = (button, className) => {
+    button.classList.toggle(className);
+    setTimeout(() => button.classList.toggle(className), 500);
 };
 ///
 
@@ -207,31 +207,30 @@ const play = () => {
 
 //////////////// *** GAME TURN FUNCTION *** ///////////////////////////////
 const gameTurn = () => {
-    console.log('gameTurn', {computerTurn})
-    if (flash === round) {
+    if (numberOfFlashes === round) {
         computerTurn = false; //so that: the first round (flash=0 & round=1)=computerTurn = true but when flash increases then flash==round and computer stops, therefore first round there's only one sound;
         clearInterval(intervalId);
-        console.log('if statement', {computerTurn})
     }
+
     if (computerTurn) { 
         setTimeout(() => {
-            if (computerOrder[flash] === 1) {
+            if (computerOrder[numberOfFlashes] === 1) {
                 playAudio(audioA);
                 flashColour(redButton, 'button__top-left_flash');
             }
-            if (computerOrder[flash] === 2) {
+            if (computerOrder[numberOfFlashes] === 2) {
                 playAudio(audioG);
                 flashColour(blueButton, 'button__top-right_flash');
             }
-            if (computerOrder[flash] === 3) {
+            if (computerOrder[numberOfFlashes] === 3) {
                 playAudio(audioD);
                 flashColour(yellowButton, 'button__bottom-left_flash');
             }
-            if (computerOrder[flash] === 4) {
+            if (computerOrder[numberOfFlashes] === 4) {
                 playAudio(audioE);
                 flashColour(greenButton, 'button__bottom-right_flash');
             }
-            flash ++;
+            numberOfFlashes ++;
         }, 200);
     }
 };
@@ -244,7 +243,7 @@ const checkPlayerRound = () => {
         round ++;
         playerOrder = [];
         computerTurn = true;
-        flash = 0;
+        numberOfFlashes = 0;
         setTimeout(() => { /// I put this timer to give some time between player and next computer round
             intervalId = setInterval(gameTurn, 600);
         }, 500) 
@@ -265,7 +264,7 @@ const checkPlayerRound = () => {
 const resetGame = () => {
     computerOrder = [];
     playerOrder = [];
-    flash = 0;
+    numberOfFlashes = 0;
     intervalId = 0;
     round = 1; 
     win = false;
@@ -276,5 +275,6 @@ const resetGame = () => {
 
 const gameOver = () => {
     console.log('GAME OVER');
+    resetGame();
     playAudio(audioError);
 }
