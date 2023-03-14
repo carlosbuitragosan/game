@@ -89,42 +89,34 @@ body {
 } 
 
 .button__top-left {
-    border: 1rem solid #FF006F;
     background: #FF006F;
 }
 
 .button__top-left_flash {
-    background: #FB78B1 ;
     border-color: #FB78B1 ;
 }
 
 .button__top-right {
-    border: 1rem solid #4A62FF;
     background: #4A62FF;
 }
 
 .button__top-right_flash {
-    background: #7E8FF9 ;
     border: #7E8FF9;
 }
 
 .button__bottom-left {
-    border: 1rem solid #f4fc09;
     background: #f4fc09;
 }
 
 .button__bottom-left_flash {
-    border: 1rem solid #fff;
     background: #fff;
 }
 
 .button__bottom-right {
-    border: 1rem solid #009700;
     background: #009700;
 }
 
 .button__bottom-right_flash {
-    border: 1rem solid #9AFB9A;
     background: #9AFB9A;
 }
 

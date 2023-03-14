@@ -5,8 +5,7 @@ let round; //keep track of what turn we're on //
 let noErrors; //boolean, it player has hit the right colours then = true //
 let computerTurn; // to keep track of whose turn it is //
 let intervalId;
-let sound = true; // if we're playing sound //
-let win; // boolean. if you win the = true //
+let win; // boolean. if you win then win  = true //
 
 
 //////////////// *** BUTTONS ***   ////////////////////////
@@ -52,7 +51,7 @@ allButtons.forEach(button => {
         let flashColourClassvalue = buttonClassValue + '_flash';
         flashColour(button, flashColourClassvalue);
 
-        ///play the audio
+        ///play the audio and check for player's round
         switch (buttonClassValue) { 
             case 'button__top-left':
                 playAudio(audioA);
@@ -81,106 +80,6 @@ allButtons.forEach(button => {
 //////
 
 
-// const flashColourRed = () => {
-//     redButton.style.backgroundColor = '#FB78B1';
-//     redButton.style.border = '#FB78B1';
-//     setTimeout(() => redButton.style.backgroundColor = '#FF006F', 200);
-// }
-
-// const flashColourBlue = () => {
-//     blueButton.style.backgroundColor = '#7E8FF9';
-//     blueButton.style.border = '#7E8FF9';
-//     setTimeout(() => blueButton.style.backgroundColor = '#4A62FF', 200);
-// }
-
-// const flashColourYellow = () => {
-//     yellowButton.style.backgroundColor = '#FCFFBA';
-//     yellowButton.style.border = '#FCFFBA';
-//     setTimeout(() => yellowButton.style.backgroundColor = '#f4fc09', 200);
-// }
-
-// const flashColourGreen = () => {
-//     greenButton.style.backgroundColor = '#9AFB9A';
-//     greenButton.style.border = '#9AFB9A';
-//     setTimeout(() => greenButton.style.backgroundColor = '#009700', 200);
-// }
-
-
-
-
-
-
-
-//////////////////////////////////////////////////////
-        // **** BUTTON FLASH & SOUND FUNCTIONS ****
-////////////////////////////////////////////////////////
-
-
-// allButtons.forEach(button => {
-//     button.addEventListener('click', event => {
-//         console.log(event.currentTarget.classList.value.split(' ')[1])
-//         switch (event.currentTarget.classList.value.split(' ')[1]) {
-//             case 'button__top-left':
-//                 playAudio(audioA);
-//                 break;
-//             case 'button__top-right':
-//                 playAudio(audioG)
-//                 break;
-//             case 'button__bottom-left':
-//                 playAudio(audioD);
-//                 break;
-//             case 'button__bottom-right':
-//                 playAudio(audioE);
-//         }
-//     })
-// })
-
-// const playAudioRed = () => {
-//     audioA.play();
-//     // flashColourRed();
-// }
-
-// const playAudioBlue = () => {
-//     audioG.play();
-//     // flashColourBlue();
-// }
-
-// const playAudioYellow = () => {
-//     audioD.play();
-//     // flashColourYellow();
-// }
-
-// const playAudioGreen = () => {
-//     audioE.play();
-//     // flashColourGreen();
-// }
-
-
-
-
-
-/////////////////////////////////////////////////////////
-                // **** PLAYER CLICKING BUTTONS  ****
-//////////////////////////////////////////////////////////
-// redButton.addEventListener('click', () => {
-//     playAudioRed();  
-// })
-
-// blueButton.addEventListener('click', () => {
-//     playAudioBlue();
-// })
-
-// yellowButton.addEventListener('click', () => {
-//     playAudioYellow();
-// })
-
-// greenButton.addEventListener('click', () => {
-//     playAudioGreen();
-// })
-
-
-
-
 ///////////////////// **** START GAME ****** ///////////////////
 startButton.addEventListener('click', () => {
     clearInterval(intervalId); //if this is not cleared when button is pressed again it creates a mess (maybe several functions running together)
@@ -199,6 +98,7 @@ const play = () => {
     }
     computerTurn = true; //the first round starts with the computer
     intervalId = (setInterval(gameTurn, 600));
+    console.log({computerTurn})
 };
 //////
 
@@ -239,10 +139,15 @@ const gameTurn = () => {
 
 /////////////// *** CHECK PLAYER'S ROUND FUNCTION *** /////////////
 const checkPlayerRound = () => {
-    if (playerOrder[playerOrder.length -1] !== computerOrder[playerOrder.length - 1]) {///this checks for the player round against the computer round and if error then game is reset
+    if (playerOrder[playerOrder.length -1] !== computerOrder[playerOrder.length - 1]) {///this checks for the player round against the computer round and if error then game is reset. It also needs to go first otherwise the first round wont be checked for errors.
         noErrors = false;
     }
-    
+
+    if (noErrors ===false) {
+        gameOver();
+        resetGame();
+    }
+
     if (round === playerOrder.length) { ///this piece of code generates the next round
         round ++;
         playerOrder = [];
@@ -251,13 +156,7 @@ const checkPlayerRound = () => {
         setTimeout(() => { /// I put this timer to give some time between player and next computer round
             intervalId = setInterval(gameTurn, 600);
         }, 500) 
-    }
-    
-    if (noErrors ===false) {
-        gameOver();
-        resetGame();
-
-    }
+    } 
 }
 //////
 
@@ -277,10 +176,21 @@ const resetGame = () => {
 
 
 
+
+
+///////////// *** WIN FUNCTION **** ////////////////
+
+// const winGame = () => {
+//     redButton.style.backgroundColour('button__top-left_flash');
+//     blueButton.classList.toggle('button__top-right_flash');
+//     yellowButton.classList.toggle('button__bottom-left_flash')
+// }
+// winGame()
 ///////////// *** GAME OVER FUNCTION *** /////////////////
 const gameOver = () => {
     console.log('GAME OVER');
     resetGame();
+    computerTurn = true;
     playAudio(audioError);
 }
 //////
