@@ -239,6 +239,10 @@ const gameTurn = () => {
 
 /////////////// *** CHECK PLAYER'S ROUND FUNCTION *** /////////////
 const checkPlayerRound = () => {
+    if (playerOrder[playerOrder.length -1] !== computerOrder[playerOrder.length - 1]) {///this checks for the player round against the computer round and if error then game is reset
+        noErrors = false;
+    }
+    
     if (round === playerOrder.length) { ///this piece of code generates the next round
         round ++;
         playerOrder = [];
@@ -248,9 +252,7 @@ const checkPlayerRound = () => {
             intervalId = setInterval(gameTurn, 600);
         }, 500) 
     }
-    if (playerOrder[playerOrder.length -1] !== computerOrder[playerOrder.length - 1]) {///this checks for the player round against the computer round and if error then game is reset
-        noErrors = false;
-    }
+    
     if (noErrors ===false) {
         gameOver();
         resetGame();
@@ -273,8 +275,12 @@ const resetGame = () => {
 }
 ///
 
+
+
+///////////// *** GAME OVER FUNCTION *** /////////////////
 const gameOver = () => {
     console.log('GAME OVER');
     resetGame();
     playAudio(audioError);
 }
+//////
