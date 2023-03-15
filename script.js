@@ -1,3 +1,4 @@
+
 let computerOrder = []; //keep track of the order of the lights and how they flash //
 let playerOrder = []; // order that the player is pressing the buttons //
 let numberOfFlashes; // the number of flashes that have appeared //
@@ -23,6 +24,7 @@ const audioG = document.querySelector('#sample__g');
 const audioD = document.querySelector('#sample__d');
 const audioE = document.querySelector('#sample__e');
 const audioError = document.querySelector('#error');
+const audioWinGame = document.querySelector('#win');
 ///
 
 
@@ -56,7 +58,7 @@ allButtons.forEach(button => {
             case 'button__top-left':
                 playAudio(audioA);
                 playerOrder.push(1);
-                    checkPlayerRound();
+                checkPlayerRound();
                 break;
             case 'button__top-right':
                 playAudio(audioG)
@@ -117,6 +119,7 @@ const gameTurn = () => {
             if (computerOrder[numberOfFlashes] === 1) {
                 playAudio(audioA);
                 flashColour(redButton, 'button__top-left_flash');
+                console.log(redButton)
             }
             if (computerOrder[numberOfFlashes] === 2) {
                 playAudio(audioG);
@@ -143,9 +146,13 @@ const checkPlayerRound = () => {
         noErrors = false;
     }
 
-    if (noErrors ===false) {
+    if (noErrors === false) {
         gameOver();
         resetGame();
+    }
+
+    if (playerOrder.length === 3 && noErrors) {
+        winGame();
     }
 
     if (round === playerOrder.length) { ///this piece of code generates the next round
@@ -154,9 +161,11 @@ const checkPlayerRound = () => {
         computerTurn = true;
         numberOfFlashes = 0;
         setTimeout(() => { /// I put this timer to give some time between player and next computer round
-            intervalId = setInterval(gameTurn, 600);
+        intervalId = setInterval(gameTurn, 600);
         }, 500) 
     } 
+
+    
 }
 //////
 
@@ -169,8 +178,7 @@ const resetGame = () => {
     intervalId = 0;
     round = 1; 
     win = false;
-    noErrors = true;
-    console.log('GAME RESET');
+    noErrors = true;;
 }
 ///
 
@@ -180,17 +188,21 @@ const resetGame = () => {
 
 ///////////// *** WIN FUNCTION **** ////////////////
 
-// const winGame = () => {
-//     redButton.style.backgroundColour('button__top-left_flash');
-//     blueButton.classList.toggle('button__top-right_flash');
-//     yellowButton.classList.toggle('button__bottom-left_flash')
-// }
-// winGame()
+const winGame = () => {
+    allButtons.forEach(button => button.style.boxShadow = ' 0 0 8px #D5A418, 0 0 24px #D5A418,0 0 36px #D5A418, 0 0 48px #D5A418, 0 0 56px #D5A418');
+    setTimeout(() => {
+        allButtons.forEach(button => button.style.boxShadow = '2px 2px  8px #000, 4px 4px 16px #000')
+    }, 8000)
+    playAudio(audioWinGame);
+    resetGame(); 
+    computerTurn = true; // so that when the game is finihed you cant press anything.
+}
+
 ///////////// *** GAME OVER FUNCTION *** /////////////////
 const gameOver = () => {
-    console.log('GAME OVER');
     resetGame();
     computerTurn = true;
+    console.log(computerTurn)
     playAudio(audioError);
 }
 //////
