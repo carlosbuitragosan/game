@@ -18,6 +18,18 @@ const greenButton = document.querySelector('.button__bottom-right');
 const startButton = document.querySelector('.menu__button_start');
 ///
 
+
+//////////////////// *** MODALS *** //////////////////////////////
+const modalWin = document.querySelector('.modal__win');
+const modalWinCloseButton = document.querySelector('.win__close_button');
+const modalGameover = document.querySelector('.modal__gameover');
+const modalGameoverCloseButton =document.querySelector('.gameover__button_close');
+
+
+
+
+
+
 //////////////// *** AUDIO SAMPLES ***   //////////////////
 const  audioA = document.querySelector('#sample__a');
 const audioG = document.querySelector('#sample__g');
@@ -100,7 +112,6 @@ const play = () => {
     }
     computerTurn = true; //the first round starts with the computer
     intervalId = (setInterval(gameTurn, 600));
-    console.log({computerTurn})
 };
 //////
 
@@ -119,7 +130,6 @@ const gameTurn = () => {
             if (computerOrder[numberOfFlashes] === 1) {
                 playAudio(audioA);
                 flashColour(redButton, 'button__top-left_flash');
-                console.log(redButton)
             }
             if (computerOrder[numberOfFlashes] === 2) {
                 playAudio(audioG);
@@ -187,22 +197,29 @@ const resetGame = () => {
 
 
 ///////////// *** WIN FUNCTION **** ////////////////
-
 const winGame = () => {
     allButtons.forEach(button => button.style.boxShadow = ' 0 0 8px #D5A418, 0 0 24px #D5A418,0 0 36px #D5A418, 0 0 48px #D5A418, 0 0 56px #D5A418');
     setTimeout(() => {
         allButtons.forEach(button => button.style.boxShadow = '2px 2px  8px #000, 4px 4px 16px #000')
     }, 8000)
     playAudio(audioWinGame);
+    modalWin.showModal();
+    setTimeout(() => modalWin.close(), 8000);
     resetGame(); 
     computerTurn = true; // so that when the game is finihed you cant press anything.
-}
+};
+
+modalWinCloseButton.addEventListener('click', () => modalWin.close());
+/////
 
 ///////////// *** GAME OVER FUNCTION *** /////////////////
 const gameOver = () => {
     resetGame();
     computerTurn = true;
-    console.log(computerTurn)
     playAudio(audioError);
+    modalGameover.showModal();
+    setTimeout(() => modalGameover.close(), 6000);
 }
+
+modalGameoverCloseButton.addEventListener('click', () => modalGameover.close());
 //////
