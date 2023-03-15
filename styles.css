@@ -41,6 +41,19 @@ body {
 .modal__gameover::backdrop {
     background: #15202baa;
 }
+
+.modal__win,
+.modal__gameover {
+    background: #15202baa;
+    border: 1px solid white;
+    border-radius: 8px;
+    color: white;
+}
+
+.modal__message {
+    font-family: 'Genos', sans-serif;
+    font-size: 3rem;
+}
 .menu {
     /* position: relative; */
     display: flex;
