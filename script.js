@@ -21,7 +21,7 @@ const startButton = document.querySelector('.menu__button_start');
 
 //////////////////// *** MODALS *** //////////////////////////////
 const modalWin = document.querySelector('.modal__win');
-const modalWinCloseButton = document.querySelector('.win__close_button');
+const modalWinCloseButton = document.querySelector('.win__button_close');
 const modalGameover = document.querySelector('.modal__gameover');
 const modalGameoverCloseButton =document.querySelector('.gameover__button_close');
 
@@ -161,7 +161,7 @@ const checkPlayerRound = () => {
         resetGame();
     }
 
-    if (playerOrder.length === 3 && noErrors) {
+    if (playerOrder.length === 20 && noErrors) {
         winGame();
     }
 
@@ -209,8 +209,13 @@ const winGame = () => {
     computerTurn = true; // so that when the game is finihed you cant press anything.
 };
 
-modalWinCloseButton.addEventListener('click', () => modalWin.close());
+modalWinCloseButton.addEventListener('click', () => {
+    modalWin.close();
+    audioWinGame.pause();
+});
 /////
+
+
 
 ///////////// *** GAME OVER FUNCTION *** /////////////////
 const gameOver = () => {
