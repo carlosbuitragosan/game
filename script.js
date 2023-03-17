@@ -126,6 +126,14 @@ greenButton.addEventListener('click', () => {
 })
 
 
+
+
+
+
+
+
+
+
 ///////////////////// **** START GAME ****** ///////////////////
 startButton.addEventListener('click', () => {
     clearInterval(intervalId); //if this is not cleared when button is pressed again it creates a mess (maybe several functions running together)
