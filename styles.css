@@ -107,7 +107,7 @@ body {
     background: #e3e3dc;
     border-radius: 8px;
     margin: 3% 3% 10% 3%;
-    user-select: none;
+    touch-action: none;
 }
 
 .buttons__container {
@@ -116,7 +116,7 @@ body {
     justify-items: center;
     row-gap: 2rem;
     column-gap: 2rem;
-    user-select: none;
+    touch-action: none;
     
 }
 
@@ -126,7 +126,7 @@ body {
     height: 30vw;
     box-shadow: 2px 2px  8px #000, 4px 4px 16px #000;
     border-radius: 1rem;
-    user-select: none;
+    touch-action: none;
 } 
 
 .play-buttons:active {

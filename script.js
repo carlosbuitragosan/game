@@ -93,6 +93,9 @@ allButtons.forEach(button => {
 });
 //////
 
+
+
+//// REPLACEMENT CODE FOR SWITCH STATEMENT ABOVE TO TEST THE DIFFERENCE /////////
 redButton.addEventListener('click', () => {
     if (computerTurn === false) {
         playAudio(audioA);
@@ -123,7 +126,8 @@ greenButton.addEventListener('click', () => {
         playerOrder.push(4);
         checkPlayerRound();
     }
-})
+});
+/////////////
 
 
 
@@ -262,6 +266,7 @@ const gameOver = () => {
     resetGame();
     computerTurn = true;
     playAudio(audioError);
+    
     modalGameover.showModal();
     setTimeout(() => modalGameover.close(), 6000);
 }
