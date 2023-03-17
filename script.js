@@ -66,32 +66,64 @@ allButtons.forEach(button => {
         flashColour(button, flashColourClassvalue);
 
         ///play the audio and check for player's round
-        switch (buttonClassValue) { 
-            case 'button__top-left':
-                playAudio(audioA);
-                playerOrder.push(1);
-                checkPlayerRound();
-                break;
-            case 'button__top-right':
-                playAudio(audioG)
-                playerOrder.push(2);
-                checkPlayerRound();
-                break;
-            case 'button__bottom-left':
-                playAudio(audioD);
-                playerOrder.push(3);
-                checkPlayerRound();
-                break;
-            case 'button__bottom-right':
-                playAudio(audioE);
-                playerOrder.push(4);
-                checkPlayerRound();
-                break;
-            }
+        // switch (buttonClassValue) { 
+        //     case 'button__top-left':
+        //         playAudio(audioA);
+        //         playerOrder.push(1);
+        //         checkPlayerRound();
+        //         break;
+        //     case 'button__top-right':
+        //         playAudio(audioG)
+        //         playerOrder.push(2);
+        //         checkPlayerRound();
+        //         break;
+        //     case 'button__bottom-left':
+        //         playAudio(audioD);
+        //         playerOrder.push(3);
+        //         checkPlayerRound();
+        //         break;
+        //     case 'button__bottom-right':
+        //         playAudio(audioE);
+        //         playerOrder.push(4);
+        //         checkPlayerRound();
+        //         break;
+        //     }
         }
     });
 });
 //////
+
+redButton.addEventListener('click', () => {
+    if (computerTurn === false) {
+        playAudio(audioA);
+        playerOrder.push(1);
+        checkPlayerRound();
+    }
+});
+
+blueButton.addEventListener('click', () => {
+    if (computerTurn === false) {
+        playAudio(audioG)
+        playerOrder.push(2);
+        checkPlayerRound();
+    }
+});
+
+yellowButton.addEventListener('click', () => {
+    if (computerTurn === false) {
+        playAudio(audioD);
+        playerOrder.push(3);
+        checkPlayerRound();
+    }
+});
+
+greenButton.addEventListener('click', () => {
+    if (computerTurn === false) {
+        playAudio(audioE);
+        playerOrder.push(4);
+        checkPlayerRound();
+    }
+})
 
 
 ///////////////////// **** START GAME ****** ///////////////////
